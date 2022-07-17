@@ -1,0 +1,168 @@
+{% extends "base.html" %}
+
+{% block title %}Recommandation{% endblock %}
+
+{% block users_active %}{% endblock %}
+{% block recommandation_active %}active{% endblock %}
+{% block content %}
+<div class="row align-items-md-stretch">
+    <div class="col-md-6">
+      <div class=" p-5 text-white  bg-dark rounded-3">
+        <h2>For Your Favorite Singer:</h2>
+        {% for singer in rec1_singer %}
+  
+            <h4>{{singer.sname}}</h4>
+
+        {% endfor %}
+      </div>
+    </div>
+    
+  </div>
+
+<table class="table">
+  <thead>
+    <tr>
+      <th scope="col">#</th>
+      <th scope="col">Name</th>
+      
+      <th scope="col">Singer</th>
+
+      <th scope="col">language</th>
+      
+      <th scope="col">Length</th>
+      <th scope="col">ID</th>
+      <th scope="col">Year</th>
+      <th scope="col">Collect</th>
+    </tr>
+  </thead>
+  <tbody>
+    {% for list in rec1s %}
+    <form action="/collect" method="post">
+      {% if exists("user") %}
+        <input type="hidden" name="colname" value="{{list.musicname}}">
+        <input type="hidden" name="coluser" value="{{user.username}}">
+      {% endif %}
+      <tr style="vertical-align: middle;">
+        <th scope="row">{{ loop.index1 }}</th>
+        <td>{{ list.musicname }}</td>
+        <td>{{ list.sname }}</td>
+        <td>{{ list.language }}</td>
+        <td>{{ list.length }}</td>
+        <td>{{list.id}}</td>
+        <td>{{list.year}}</td>
+      {% if exists("user") %}
+        <td><button class="btn btn-primary" type="submit">Collect</button></td>
+      {% endif %}
+      </tr>
+    </form>
+    {% endfor %}
+  </tbody>
+</table>
+
+<div class="row align-items-md-stretch">
+    <div class="col-md-6">
+      <div class="p-5 text-white  bg-dark rounded-3">
+        <h2>For Your Favorite Language:</h2>
+        {% for language in rec2_language %}
+  
+            <h4>{{language.language}}</h4>
+
+        {% endfor %}
+      </div>
+    </div>
+    
+  </div>
+
+<table class="table">
+    <thead>
+      <tr>
+        <th scope="col">#</th>
+        <th scope="col">Name</th>
+        
+        <th scope="col">Singer</th>
+  
+        <th scope="col">language</th>
+        
+        <th scope="col">Length</th>
+        <th scope="col">ID</th>
+        <th scope="col">Year</th>
+        <th scope="col">Collect</th>
+      </tr>
+    </thead>
+    <tbody>
+      {% for list in rec2s %}
+      <form action="/collect" method="post">
+        {% if exists("user") %}
+          <input type="hidden" name="colname" value="{{list.musicname}}">
+          <input type="hidden" name="coluser" value="{{user.username}}">
+        {% endif %}
+        <tr style="vertical-align: middle;">
+          <th scope="row">{{ loop.index1 }}</th>
+          <td>{{ list.musicname }}</td>
+          <td>{{ list.sname }}</td>
+          <td>{{ list.language }}</td>
+          <td>{{ list.length }}</td>
+          <td>{{list.id}}</td>
+          <td>{{list.year}}</td>
+        {% if exists("user") %}
+          <td><button class="btn btn-primary" type="submit">Collect</button></td>
+        {% endif %}
+        </tr>
+      </form>
+      {% endfor %}
+    </tbody>
+  </table>
+
+  <div class="row align-items-md-stretch">
+    <div class="col-md-6">
+      <div class="h-75 p-5 text-white  bg-dark rounded-3">
+        <h2>Tag:MyFavor</h2>
+        
+      </div>
+    </div>
+    
+  </div>
+
+<table class="table">
+    <thead>
+      <tr>
+        <th scope="col">#</th>
+        <th scope="col">Name</th>
+        
+        <th scope="col">Singer</th>
+  
+        <th scope="col">language</th>
+        
+        <th scope="col">Length</th>
+        <th scope="col">ID</th>
+        <th scope="col">Year</th>
+        <th scope="col">Collect</th>
+      </tr>
+    </thead>
+    <tbody>
+      {% for list in rec3s %}
+      <form action="/collect" method="post">
+        {% if exists("user") %}
+          <input type="hidden" name="colname" value="{{list.musicname}}">
+          <input type="hidden" name="coluser" value="{{user.username}}">
+        {% endif %}
+        <tr style="vertical-align: middle;">
+          <th scope="row">{{ loop.index1 }}</th>
+          <td>{{ list.musicname }}</td>
+          <td>{{ list.sname }}</td>
+          <td>{{ list.language }}</td>
+          <td>{{ list.length }}</td>
+          <td>{{list.id}}</td>
+          <td>{{list.year}}</td>
+        {% if exists("user") %}
+          <td><button class="btn btn-primary" type="submit">Collect</button></td>
+        {% endif %}
+        </tr>
+      </form>
+      {% endfor %}
+    </tbody>
+  </table>
+  
+
+
+{% endblock %}

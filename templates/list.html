@@ -1,0 +1,251 @@
+{% extends "base.html" %}
+
+{% block title %}List{% endblock %}
+
+{% block users_active %}{% endblock %}
+{% block lists_active %}active{% endblock %}
+{% block content %}
+
+{% if exists("user") %}
+  {% if user.is_superuser==true %}
+  <!-- Button trigger modal -->
+  <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#listModal">
+    Add List For Superuser
+  </button>
+
+  <!-- Modal -->
+  <div class="modal fade" id="listModal" tabindex="-1" aria-labelledby="userModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <form method="post" action="/form_add_list">
+          <div class="modal-header">
+            <h5 class="modal-title" id="userModalLabel">Add List</h5>
+            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+          </div>
+          <div class="modal-body">
+            <div class="mb-3">
+              <label for="musicname" class="form-label">Musicname</label>
+              <input type="text" class="form-control" id="musicname" name="musicname" placeholder="Musicname">
+            </div>
+            <div class="mb-3">
+              <label for="length" class="form-label">Length</label>
+              <input type="number" class="form-control" id="length" name="length" placeholder="Length">
+            </div>
+            <div class="mb-3">
+              <label for="year" class="form-label">Year</label>
+              <input type="number" class="form-control" id="year" name="year" placeholder="Year">
+            </div>
+            <div class="mb-3">
+              <label for="language" class="form-label">Language</label>
+              <input type="text" class="form-control" id="language" name="language" placeholder="Language">
+            </div>
+            <div class="mb-3">
+              <label for="sname" class="form-label">Sname</label>
+              <input type="text" class="form-control" id="sname" name="sname" placeholder="Sname">
+            </div>
+
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
+            <button type="submit" class="btn btn-primary">Add</button>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+  {% endif %}
+{% endif %}
+{% if exists("user") %}
+  {% if user.is_superuser==true %}
+  <!-- Button trigger modal -->
+  <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#singerModal">
+    Add Singer For Superuser
+  </button>
+
+  <!-- Modal -->
+  <div class="modal fade" id="singerModal" tabindex="-1" aria-labelledby="userModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <form method="post" action="/form_add_singer">
+          <div class="modal-header">
+            <h5 class="modal-title" id="userModalLabel">Add Singer</h5>
+            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+          </div>
+          <div class="modal-body">
+            <div class="mb-3">
+              <label for="addsname" class="form-label">Sname</label>
+              <input type="text" class="form-control" id="addsname" name="addsname" placeholder="Musicname">
+            </div>
+            <div class="mb-3">
+              <label for="addbirthyear" class="form-label">BirthYear</label>
+              <input type="number" class="form-control" id="addbirthyear" name="addbirthyear" placeholder="addbirthyear">
+            </div>
+            <div class="mb-3">
+              <label for="addsex" class="form-label">Sex(M for Male F for Female and T for Team)</label>
+              <input type="text" class="form-control" id="addsex" name="addsex" placeholder="addsex">
+            </div>
+            <div class="mb-3">
+              <label for="area" class="form-label">Area</label>
+              <input type="text" class="form-control" id="area" name="area" placeholder="Area">
+            </div>
+            <div class="mb-3">
+              <label for="message" class="form-label">Message</label>
+              <input type="text" class="form-control" id="message" name="message" placeholder="Message">
+            </div>
+            <div class="mb-3">
+              <label for="award" class="form-label">Award</label>
+              <input type="text" class="form-control" id="award" name="award" placeholder="Award">
+            </div>
+
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
+            <button type="submit" class="btn btn-primary">Add</button>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+  {% endif %}
+{% endif %}
+<table>
+  <td>  
+  <form action="/list/search" method="post">
+      <input type="text" name="search" id="search" placeholder="Precise Search">
+      <button type="submit" class="btn btn-secondary">Search</button>
+     
+    </form>
+  </td  >
+  <td>  
+    <form action="/list/searchs" method="post">
+        <input type="text" name="searchs" id="searchs" placeholder="Singer Search">
+        <button type="submit" class="btn btn-secondary">Search</button>
+        <button type="submit" class="btn btn-primary" formaction="/list">Reset</button>
+      </form>
+    </td>
+</table>
+<table class="table">
+  <thead>
+    <tr>
+      <th scope="col">#</th>
+      <th scope="col">Name</th>
+      
+      <th><div class="dropdown">
+        <button type="button" class="btn btn-primary dropdown-toggle" data-bs-toggle="dropdown">
+          Singer
+        </button>
+        <div class="dropdown-menu">
+          {% for singer in singers %}
+            <form action="/list/singer" method="post">
+              <input type="hidden" name="singerback" value="{{singer.sname}}">
+              <button class="btn btn-light" type="submit">{{singer.sname}}</button>
+            </form>  
+          {% endfor %}          
+        </div>
+      </div></th>
+
+      <th><div class="dropdown">
+        <button type="button" class="btn btn-primary dropdown-toggle" data-bs-toggle="dropdown">
+          Language
+        </button>
+        <div class="dropdown-menu">
+          {% for language in languages %}
+            <form action="/list/language" method="post">
+              <input type="hidden" name="languageback" value="{{language.language}}">
+              <button class="btn btn-light" type="submit">{{language.language}}</button>
+            </form>  
+          {% endfor %}          
+        </div>
+      </div></th>
+      
+      <th scope="col">Length</th>
+      <th scope="col">ID</th>
+      <th scope="col">Year</th>
+      <th scope="col">KnowMore</th>
+      <th scope="col">Collect</th>
+      <th scope="col">Delete</th>
+      
+    </tr>
+  </thead>
+  <tbody>
+    {% for list in lists %}
+    <form action="/collect" method="post">
+      {% if exists("user") %}
+        <input type="hidden" name="colname" value="{{list.musicname}}">
+        <input type="hidden" name="coluser" value="{{user.username}}">
+        <input type="hidden" name="colsinger" value="{{list.sname}}">
+      {% endif %}
+      <tr style="vertical-align: middle;">
+        <th scope="row">{{ loop.index1 }}</th>
+        <td>{{ list.musicname }}</td>
+        <td>{{ list.sname }}</td>
+        <td>{{ list.language }}</td>
+        <td>{{ list.length }}</td>
+        <td>{{list.id}}</td>
+        <td>{{list.year}}</td>
+      {% if exists("user") %}
+       <td><button class="btn btn-primary" type="submit" formaction="/more" onclick="window.location.href='/'">More</button></td>
+
+        <td><button class="btn btn-primary" type="submit">Collect</button></td>
+        {% if user.is_superuser==true %}
+        <td><button class="btn btn-primary" type="submit" formaction="/dlist" >Delete</button></td>
+        {% else %}
+        <td><button class="btn btn-primary" type="button" disabled>No Permission</button> </td> 
+        {% endif %}
+      {% else %} 
+      <td><button class="btn btn-primary" type="button" disabled>No Permission</button> </td> 
+      {% endif %}
+      
+      </tr>
+    </form>
+    {% endfor %}
+  </tbody>
+</table>
+
+{% if exists("pagination") %}
+<ul class="pagination">
+  {% if existsIn(pagination, "previous") %}
+  <li class="page-item">
+    <a class="page-link" href="/list/{{ pagination.previous }}" aria-label="Previous">
+      <span aria-hidden="true">&laquo;</span>
+    </a>
+  </li>
+  {% else %}
+  <li class="page-item disabled">
+    <a class="page-link" href="#" aria-label="Previous">
+      <span aria-hidden="true">&laquo;</span>
+    </a>
+  </li>
+  {% endif %}
+  {% if existsIn(pagination, "left_ellipsis") %}
+  <li class="page-item"><a class="page-link" href="/list/1">1</a></li>
+  <li class="page-item disabled"><a class="page-link" href="#">...</a></li>
+  {% endif %}
+  {% for page in pagination.pages_left %}
+  <li class="page-item"><a class="page-link" href="/list/{{ page }}">{{ page }}</a></li>
+  {% endfor %}
+  <li class="page-item active" aria-current="page"><a class="page-link" href="/list/{{ pagination.current }}">{{
+      pagination.current }}</a></li>
+  {% for page in pagination.pages_right %}
+  <li class="page-item"><a class="page-link" href="/list/{{ page }}">{{ page }}</a></li>
+  {% endfor %}
+  {% if existsIn(pagination, "right_ellipsis") %}
+  <li class="page-item disabled"><a class="page-link" href="#">...</a></li>
+  <li class="page-item"><a class="page-link" href="/list/{{ pagination.total }}">{{ pagination.total }}</a></li>
+  {% endif %}
+  {% if existsIn(pagination, "next") %}
+  <li class="page-item">
+    <a class="page-link" href="/list/{{ pagination.next }}" aria-label="Next">
+      <span aria-hidden="true">&raquo;</span>
+    </a>
+  </li>
+  {% else %}
+  <li class="page-item disabled">
+    <a class="page-link" href="#" aria-label="Next">
+      <span aria-hidden="true">&raquo;</span>
+    </a>
+  </li>
+  {% endif %}
+</ul>
+{% endif %}
+{% endblock %}

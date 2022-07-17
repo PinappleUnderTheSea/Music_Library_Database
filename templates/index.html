@@ -1,0 +1,45 @@
+{% extends "base.html" %}
+
+{% block title %}Home{% endblock %}
+
+{% block home_active %}active{% endblock %}
+
+{% block content %}
+
+<div class="p-5 mb-4 bg-light rounded-3">
+  <div class="container-fluid py-5">
+    {% if exists ("user") %}
+      {% if user.is_superuser ==true %}
+        <h1 class="display-5 fw-bold">HELLO, Administrator</h1>
+      {% else %}
+        <h1 class="display-5 fw-bold">HELLO, User</h1>
+      {% endif %}
+    {% else %}
+    <h1 class="display-5 fw-bold">HELLO, tourist</h1>
+    {% endif %}
+    <p class="col-md-8 fs-4">Welcome to my WebApp. Here is a Music Library for you to record songs you like and Mark them as you wish. Before you join us, you can skim through the music list to find what you like</p>
+    <ul class="nav nav-pills"></ul>  
+      <li class="nav-item">
+        <a class="nav-link active btn-outline-secondary h-100" href="/list">Click to List</a>
+      </li>
+    </ul>
+  </div>
+</div>
+
+<div class="row align-items-md-stretch">
+  <div class="col-md-6">
+    <div class="h-100 p-5 text-white bg-dark rounded-3">
+      <h2>Register</h2>
+      <p>After skimming through our music list,you could be attracted to this music library. Now let's have an own username. Please click ADD USER above to register and then login</p>
+      <a class="btn btn-outline-light" type="button" href="/">Back to Top</a>
+    </div>
+  </div>
+  <div class="col-md-6">
+    <div class="h-100 p-5 bg-light border rounded-3">
+      <h2>Explore More</h2>
+      <p>When you login successfully, there will be more functions above like "collection" and "recommandation". Click them and have fun here</p>
+      <a class="btn btn-outline-secondary" type="button" href="/">Start Exploration</a>
+    </div>
+  </div>
+</div>
+{% endblock %}

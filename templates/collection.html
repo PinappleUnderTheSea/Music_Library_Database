@@ -1,0 +1,82 @@
+{% extends "base.html" %}
+
+{% block title %}Collection{% endblock %}
+
+{% block users_active %}{% endblock %}
+{% block collections_active %}active{% endblock %}
+{% block content %}
+
+
+
+  <!-- Button trigger modal -->
+    <div class="dropdown">
+      <button type="button" class="btn btn-outline-success dropdown-toggle" data-bs-toggle="dropdown">
+        Skin
+      </button>
+      <div class="dropdown-menu">
+      <button class="btn btn-light" id="skin1" type="button" onclick="ChangeColor1()">Skin1</button>
+      <button class="btn btn-light" id="skin2" type="button" onclick="ChangeColor2()">Skin2</button>
+      <button class="btn btn-light" id="skin3" type="button" onclick="ChangeColor3()">Skin3</button>
+      </div>
+      </div>
+  <a class="btn btn-primary" href="/list">Search for More</a>
+
+ <script>
+  function ChangeColor1(){
+    var a =document.getElementById('skin')
+    a.style.backgroundImage="url(/statics/bg.jpeg)"
+  }
+  function ChangeColor2(){
+    var a =document.getElementById('skin')
+    a.style.backgroundImage="url(/statics/bg2.jpeg)"
+  }
+  function ChangeColor3(){
+    var a =document.getElementById('skin')
+    a.style.backgroundImage="url(/statics/bg3.jpg)"
+  }
+</script>
+
+<table class="table">
+  <thead>
+    <tr>
+      <th scope="col">#</th>
+      <th scope="col">Music</th>
+      <th scope="col">Singer</th>
+      <th scope="col">Freq</th>
+      <th scope="col">Collector</th>
+      <th scope="col">MyFavor</th>
+      <th scope="col">Favor/Not</th>
+      <th scope="col">Play</th>
+      <th scope="col">Reset</th>
+      <th scope="col">Delete</th>
+    </tr>
+  </thead>
+  <tbody>
+    {% for collection in collections %}
+    <form action="/set" method="post">
+      {% if exists("user") %}
+        <input type="hidden" name="setname" value="{{collection.mname}}">
+        <input type="hidden" name="setuser" value="{{user.username}}">
+      {% endif %}
+      <tr style="vertical-align: middle;">
+        <th scope="row">{{ loop.index1 }}</th>
+        <td>{{ collection.mname }}</td>
+        <td>{{ collection.sname }}</td>
+        <td>{{ collection.freq }}</td>
+        <td>{{ collection.uname}}</td>
+        <td>{{ collection.is_favorite }}</td>
+
+      {% if exists("user") %}
+        <td><button class="btn btn-primary" type="submit">SET</button></td>
+        <td><button class="btn btn-primary" type="submit" formaction="/play">Play</button></td>
+        <td><button class="btn btn-primary" type="submit" formaction="/clear">Clear</button></td>
+        <td><button class="btn btn-primary" type="submit" formaction="/dlt">Delete</button></td>
+      {% endif %}
+      </tr>
+    </form>
+    {% endfor %}
+  </tbody>
+</table>
+
+
+{% endblock %}

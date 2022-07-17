@@ -1,0 +1,42 @@
+{% extends "base.html" %}
+
+{% block title %}Home{% endblock %}
+
+{% block home_active %}active{% endblock %}
+
+{% block content %}
+<div class="p-5 mb-4 bg-light rounded-3">
+  <div class="container-fluid py-5">
+    <h1 class="display-5 fw-bold">About Singer</h1>
+    {% for more in mores %}
+        <h2 class="display-5 fw-bold"><mark>{{more.sname}}</mark></h1>
+        <h5 class="display-6 fw-bold">Sex("T for team" ):<mark>{{more.sex}}</mark></h5>
+        <h5 class="display-6 fw-bold">Area :<mark>{{more.area}}</mark></h5>
+        <h5 class="display-6 fw-bold">Birthyear :<mark>{{more.birthyear}}</mark></h5>
+        <p class="col-md-8 fs-4">{{more.message}}</p>
+    {% endfor %}
+    <ul class="nav nav-pills"></ul>  
+
+    </ul>
+  </div>
+</div>
+
+<div class="row align-items-md-stretch">
+  <div class="col-md-6">
+    <div class="h-100 p-5 text-white bg-dark rounded-3">
+      <h2>Awards</h2>
+      {% for more in mores %}
+        <p>{{more.award}}</p>
+      {% endfor %}
+    </div>
+  </div>
+  <div class="col-md-6">
+    <div class="h-100 p-5 bg-light border rounded-3">
+      <h2>Music in List</h2>
+    {% for song in songs %}
+      <p><mark>{{song.musicname}}</mark></p>
+    {% endfor %}
+    </div>
+  </div>
+</div>
+{% endblock %}
